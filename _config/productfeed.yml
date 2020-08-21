@@ -1,10 +1,10 @@
 ---
 Name: productfeed
 ---
-Product:
+SilverShop\Page\Product:
   extensions:
-    - ProductFeedProductFeedExtension
+    - Meldgaard\ProductFeed\ProductFeedExtension
 
-ProductVariation:
+SilverShop\Page\ProductVariation:
   extensions:
-    - ProductFeedProductVariationExtension
+    - Meldgaard\ProductFeed\ProductFeedProductVariationExtension

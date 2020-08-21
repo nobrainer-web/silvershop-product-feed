@@ -10,7 +10,7 @@
   "require": {
 	"php": ">=5.4.1",
 	"silverstripe/framework": "^4.4",
-	"tractorcow/silverstripe-autocomplete": "^4.0"
+	"tractorcow/silverstripe-autocomplete": "4.0.0"
   },
   "extra": {
 	"installer-name": "silvershop-product-feed"

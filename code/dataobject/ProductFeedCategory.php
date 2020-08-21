@@ -1,7 +1,19 @@
 <?php
 
+namespace Meldgaard\ProductFeed;
+
+use SilverStripe\ORM\DataObject;
+use SilverStripe\ORM\DB;
+
 class ProductFeedCategory extends DataObject
 {
+
+    private static $table_name = 'ProductFeedCategory';
+
+    private static $singular_name = 'Product feed category';
+
+    private static $plural_name = 'Product feed categories';
+
     private static $db = [
         'GoogleID' => 'Int',
         'Title'    => 'Varchar(255)'
@@ -28,7 +40,7 @@ class ProductFeedCategory extends DataObject
                 $new_cat->write();
                 $count++;
             }
-            DB::alteration_message('Created {$count} Categories', 'created');
+            DB::alteration_message("Created {$count} Categories", 'created');
         }
     }
 
@@ -44,7 +56,7 @@ class ProductFeedCategory extends DataObject
     {
         // Get a list of Google Categories from the
         // product file.
-        $file = BASE_PATH . '/silvershop-product-feed/thirdparty/google-taxonomy.txt';
+        $file = BASE_PATH . '/vendor/meldgaard/silvershop-product-feed/thirdparty/google-taxonomy.txt';
         $fopen = fopen($file, 'r');
         $fread = fread($fopen, filesize($file));
         fclose($fopen);

@@ -4,6 +4,6 @@ After:
   - '#rootroutes'
   - '#coreroutes'
 ---
-Director:
+SilverStripe\Control\Director:
   rules:
-    'productfeeds//$Action': 'ProductFeedController'
+    'productfeeds//$Action': Meldgaard\ProductFeed\ProductFeedController

@@ -1,5 +1,13 @@
 <?php
 
+namespace Meldgaard\ProductFeed;
+
+use SilverShop\Page\Product;
+use SilverStripe\Control\Controller;
+use SilverStripe\Core\Config\Config;
+use SilverStripe\SiteConfig\SiteConfig;
+use SilverStripe\View\ArrayData;
+
 class ProductFeedController extends Controller
 {
 
@@ -10,7 +18,8 @@ class ProductFeedController extends Controller
 
     public function google()
     {
-        Config::inst()->update('SSViewer', 'set_source_file_comments', false);
+
+        Config::modify()->set('SSViewer', 'set_source_file_comments', false);
 
         $this->getResponse()->addHeader(
             'Content-Type',
@@ -27,13 +36,13 @@ class ProductFeedController extends Controller
         return $this->customise(new ArrayData(array(
             "SiteConfig" => SiteConfig::current_site_config(),
             'Items'      => $items
-        )))->renderWith("google");
+        )))->renderWith("Meldgaard/ProductFeed/google");
     }
 
     public function pricerunner()
     {
 
-        Config::inst()->update('SSViewer', 'set_source_file_comments', false);
+        Config::modify()->set('SSViewer', 'set_source_file_comments', false);
 
         $this->getResponse()->addHeader(
             'Content-Type',
@@ -51,7 +60,7 @@ class ProductFeedController extends Controller
             'SiteConfig'      => SiteConfig::current_site_config(),
             'Items'           => $items,
             'DefaultDelivery' => Config::inst()->get('ProductFeedController', 'DefaultDelivery')
-        )))->renderWith("pricerunner");
+        )))->renderWith("Meldgaard/ProductFeed/pricerunner");
     }
 
 }

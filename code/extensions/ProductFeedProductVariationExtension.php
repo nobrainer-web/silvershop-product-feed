@@ -1,5 +1,10 @@
 <?php
 
+namespace Meldgaard\ProductFeed;
+
+use SilverStripe\Forms\FieldList;
+use SilverStripe\ORM\DataExtension;
+
 class ProductFeedProductVariationExtension extends DataExtension
 {
     private static $db = [

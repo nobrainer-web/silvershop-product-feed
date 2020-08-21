@@ -1,6 +1,16 @@
 <?php
 
-class ProductFeedProductFeedExtension extends DataExtension
+namespace Meldgaard\ProductFeed;
+
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\DropdownField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\Forms\TextField;
+use SilverStripe\Forms\ToggleCompositeField;
+use SilverStripe\ORM\DataExtension;
+use TractorCow\AutoComplete\AutoCompleteField;
+
+class ProductFeedExtension extends DataExtension
 {
     private static $db = [
         'RemoveFromProductFeed'   => 'Boolean',
@@ -11,8 +21,8 @@ class ProductFeedProductFeedExtension extends DataExtension
     ];
 
     private static $has_one = [
-        'GoogleProductCategory'      => 'ProductFeedCategory',
-        'PricerunnerProductCategory' => 'ProductFeedCategory',
+        'GoogleProductCategory'      => ProductFeedCategory::class,
+        'PricerunnerProductCategory' => ProductFeedCategory::class,
 
     ];
 
@@ -38,9 +48,7 @@ class ProductFeedProductFeedExtension extends DataExtension
                     'GoogleProductCategoryID',
                     'Category',
                     '',
-                    null,
-                    null,
-                    'ProductFeedCategory',
+                    ProductFeedCategory::class,
                     'Title'
                 )
             ]);
@@ -55,21 +63,19 @@ class ProductFeedProductFeedExtension extends DataExtension
                     'PricerunnerProductCategoryID',
                     'Category',
                     '',
-                    null,
-                    null,
-                    'ProductFeedCategory',
+                    ProductFeedCategory::class,
                     'Title'
                 ),
                 TextField::create('PricerunnerDeliveryTime', 'Leveringstid')
             ]);
 
         if ($fields->fieldByName('Root')) {
-            if (is_string($this->owner->has_many('Variations')) && $this->owner->Variations()->exists()) {
+            if (is_string($this->owner->Variations() && $this->owner->Variations()->exists())) {
                 $fields->addFieldToTab('Root.ProductFeeds', $removeField);
                 $fields->addFieldToTab('Root.ProductFeeds', $brandField);
                 $fields->addFieldToTab('Root.ProductFeeds', $googleShopping);
                 $fields->addFieldToTab('Root.ProductFeeds', $priceRunner);
-            }else {
+            } else {
                 $fields->addFieldToTab('Root.ProductFeeds', $removeField);
                 $fields->addFieldToTab('Root.ProductFeeds', $brandField);
                 $fields->addFieldToTab('Root.ProductFeeds', $eanField);
