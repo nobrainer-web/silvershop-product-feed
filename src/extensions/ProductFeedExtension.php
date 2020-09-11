@@ -112,9 +112,7 @@ class ProductFeedExtension extends DataExtension
 
     public function getNearestInheritedRelation($field, $default)
     {
-
         $value = $this->owner->{$field}();
-
         if ($value->exists()) {
             return $value;
         }
