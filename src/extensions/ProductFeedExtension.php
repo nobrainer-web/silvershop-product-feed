@@ -23,7 +23,6 @@ class ProductFeedExtension extends DataExtension
     private static $has_one = [
         'GoogleProductCategory'      => ProductFeedCategory::class,
         'PricerunnerProductCategory' => ProductFeedCategory::class,
-
     ];
 
     public function updateCMSFields(FieldList $fields)
@@ -85,6 +84,73 @@ class ProductFeedExtension extends DataExtension
         }
 
         return $fields;
+    }
+
+    public function getInheritedPricerunnerDeliveryTime()
+    {
+        return $this->getNearestInheritedField('PricerunnerDeliveryTime', '');
+    }
+
+    public function getInheritedBrand()
+    {
+        return $this->getNearestInheritedField('Brand', '');
+    }
+
+    public function getInheritedPricerunnerProductCategory()
+    {
+        $default = ProductFeedCategory::create();
+
+        return $this->getNearestInheritedRelation('PricerunnerProductCategory', $default);
+    }
+
+    public function getInheritedGoogleProductCategory()
+    {
+        $default = ProductFeedCategory::create();
+
+        return $this->getNearestInheritedRelation('GoogleProductCategory', $default);
+    }
+
+    public function getNearestInheritedRelation($field, $default)
+    {
+        $value = $this->owner->{$field}();
+
+        if ($value->exists()) {
+            return $value;
+        }
+
+        $parent = $this->owner->Parent();
+
+        $inheritedValue = $default;
+        while ($parent && $parent->exists()) {
+            $inheritedValue = $parent->{$field}();
+            if ($inheritedValue->exists()) {
+                break;
+            }
+            $parent = $parent->Parent();
+        }
+
+        return $inheritedValue ?: $default;
+    }
+
+    public function getNearestInheritedField($field, $default)
+    {
+        $value = $this->owner->{$field};
+        if ($value) {
+            return $value;
+        }
+
+        $parent = $this->owner->Parent();
+
+        $inheritedValue = $default;
+        while ($parent && $parent->exists()) {
+            $inheritedValue = $parent->{$field};
+            if ($inheritedValue) {
+                break;
+            }
+            $parent = $parent->Parent();
+        }
+
+        return $inheritedValue ?: $default;
     }
 
 }

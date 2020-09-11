@@ -13,7 +13,6 @@ use TractorCow\AutoComplete\AutoCompleteField;
 class CategoryFeedExtension extends DataExtension
 {
     private static $db = [
-        'GoogleCondition'         => 'Enum(array("new","refurbished","used"),"new")',
         'Brand'                   => 'Varchar',
         'PricerunnerDeliveryTime' => 'Varchar'
     ];
@@ -34,11 +33,6 @@ class CategoryFeedExtension extends DataExtension
                 'Google Shopping Feed'
             ),
             [
-                DropdownField::create(
-                    'GoogleCondition',
-                    'Product condition',
-                    singleton($this->owner->ClassName)->dbObject('GoogleCondition')->enumValues()
-                ),
                 AutoCompleteField::create(
                     'GoogleProductCategoryID',
                     'Category',
