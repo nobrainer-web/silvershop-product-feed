@@ -10,28 +10,23 @@ use SilverStripe\Forms\ToggleCompositeField;
 use SilverStripe\ORM\DataExtension;
 use TractorCow\AutoComplete\AutoCompleteField;
 
-class ProductFeedExtension extends DataExtension
+class CategoryFeedExtension extends DataExtension
 {
     private static $db = [
-        'RemoveFromProductFeed'   => 'Boolean',
         'GoogleCondition'         => 'Enum(array("new","refurbished","used"),"new")',
         'Brand'                   => 'Varchar',
-        'EAN'                     => 'Varchar',
         'PricerunnerDeliveryTime' => 'Varchar'
     ];
 
     private static $has_one = [
         'GoogleProductCategory'      => ProductFeedCategory::class,
         'PricerunnerProductCategory' => ProductFeedCategory::class,
-
     ];
 
     public function updateCMSFields(FieldList $fields)
     {
 
-        $removeField = new CheckboxField('RemoveFromProductFeed');
         $brandField = new TextField('Brand');
-        $eanField = new TextField('EAN');
 
         $googleShopping = new ToggleCompositeField('GoogleShoppingSettings',
             _t(
@@ -70,21 +65,11 @@ class ProductFeedExtension extends DataExtension
             ]);
 
         if ($fields->fieldByName('Root')) {
-            if (is_string($this->owner->Variations() && $this->owner->Variations()->exists())) {
-                $fields->addFieldToTab('Root.ProductFeeds', $removeField);
-                $fields->addFieldToTab('Root.ProductFeeds', $brandField);
-                $fields->addFieldToTab('Root.ProductFeeds', $googleShopping);
-                $fields->addFieldToTab('Root.ProductFeeds', $priceRunner);
-            } else {
-                $fields->addFieldToTab('Root.ProductFeeds', $removeField);
-                $fields->addFieldToTab('Root.ProductFeeds', $brandField);
-                $fields->addFieldToTab('Root.ProductFeeds', $eanField);
-                $fields->addFieldToTab('Root.ProductFeeds', $googleShopping);
-                $fields->addFieldToTab('Root.ProductFeeds', $priceRunner);
-            }
+            $fields->addFieldToTab('Root.ProductFeeds', $brandField);
+            $fields->addFieldToTab('Root.ProductFeeds', $googleShopping);
+            $fields->addFieldToTab('Root.ProductFeeds', $priceRunner);
         }
 
         return $fields;
     }
-
 }

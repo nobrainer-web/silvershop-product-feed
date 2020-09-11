@@ -4,6 +4,9 @@ Name: productfeed
 SilverShop\Page\Product:
   extensions:
     - Meldgaard\ProductFeed\ProductFeedExtension
+#SilverShop\Page\ProductCategory:
+#  extensions:
+#    - Meldgaard\ProductFeed\CategoryFeedExtension
 
 SilverShop\Page\ProductVariation:
   extensions:
