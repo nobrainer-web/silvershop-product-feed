@@ -10,7 +10,8 @@
                     <item>
                         <title>$Up.Title - $Title</title>
                         <g:title>$Up.Title - $Title</g:title>
-                        <description>$Up.Content.Summary</description>
+	                    <g:product_type><![CDATA[$Up.NestedTitle(2, ' > ')]]></g:product_type>
+	                    <description>$Up.Content.Summary</description>
                         <g:description>$Up.Content.Summary</g:description>
                         <g:id>$InternalItemID</g:id>
                         <link>$Up.AbsoluteLink</link>
@@ -29,7 +30,8 @@
                 <item>
                     <title>$Title</title>
                     <g:title>$Title</g:title>
-                    <description>$Content.Summary</description>
+	                <g:product_type><![CDATA[$NestedTitle(2, ' > ')]]></g:product_type>
+	                <description>$Content.Summary</description>
                     <g:description>$Content.Summary</g:description>
                     <g:id>$InternalItemID</g:id>
                     <link>$AbsoluteLink</link>
